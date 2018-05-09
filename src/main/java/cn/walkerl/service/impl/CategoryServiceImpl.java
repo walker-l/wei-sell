@@ -9,7 +9,7 @@ import cn.walkerl.dataobject.ProductCategory;
 import cn.walkerl.repository.ProductCategoryRepository;
 import cn.walkerl.service.CategoryService;
 
-@Service
+@Service("CategoryServiceImpl")
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired

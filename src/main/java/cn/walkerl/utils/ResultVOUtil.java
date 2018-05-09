@@ -12,6 +12,7 @@ public class ResultVOUtil {
 		return resultVO;
 	}
 	
+	//不需要返回数据时，对象为null，调用上一个success方法
 	public static ResultVO success() {
 		return success(null);
 	}
