@@ -13,3 +13,7 @@ server:
   servlet:
     context-path: /wei-sell 
   port: 8080
+  
+wechat:
+  mpAppId: wx3e4c666a1cf349c0
+  mpAppSecret: 833c8ada8149e699c09247882f545f82
