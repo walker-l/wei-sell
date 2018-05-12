@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import cn.walkerl.dataobject.OrderDetail;
+import cn.walkerl.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
 @Data
@@ -35,9 +38,11 @@ public class OrderDTO {
 	private Integer payStatus;
 	
 	/** 创建时间. */
+	@JsonSerialize(using = Date2LongSerializer.class)
 	private Date createTime;
 			
 	/** 更新时间. */
+	@JsonSerialize(using = Date2LongSerializer.class)
 	private Date updateTime;
 	
 	/* 创立orderDetailList,方便controller层使用 */
