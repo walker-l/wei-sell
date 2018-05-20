@@ -1,13 +1,9 @@
 package cn.walkerl.service.impl;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.util.List;
 
-import javax.security.sasl.SaslException;
 import javax.transaction.Transactional;
 
-import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -92,5 +88,39 @@ public class ProductServiceImpl implements ProductService {
 		
 	}
 
+	@Override
+	@Transactional
+	public ProductInfo onSale(String productId) {
+		ProductInfo productInfo = repository.findByProductId(productId);
+		if ( productInfo == null ) {
+			throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+		}
+		if (productInfo.getProductStatusEnum() == ProductStatusEnum.UP) {
+			throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+		}
+		
+		//更新
+		productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
+		return repository.save(productInfo);
+	}
+
+	@Override
+	@Transactional
+	public ProductInfo offSale(String productId) {
+		ProductInfo productInfo = repository.findByProductId(productId);
+		if ( productInfo == null ) {
+			throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+		}
+		if (productInfo.getProductStatusEnum() == ProductStatusEnum.DOWN) {
+			throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
+		}
+		
+		//更新
+		productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
+		return repository.save(productInfo);
+	}
+
+	
+	
 	
 }

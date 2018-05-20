@@ -3,8 +3,10 @@ package cn.walkerl.enums;
 import lombok.Getter;
 
 @Getter
-public enum ResultEnum {
+public enum ResultEnum implements CodeEnum<Integer>{
 
+	SUCCESSFUL(0,"成功"),
+	
 	PARAM_ERROR(1,"参数不正确"),
 	
 	PRODUCT_NOT_EXIST(10, "商品不存在"),
@@ -28,6 +30,27 @@ public enum ResultEnum {
 	ORDER_OWNER_ERROR(19,"该订单不属于当前用户"),
 	
 	WECHAT_MP_ERROR(20,"微信公众帐号方面错误"),
+	
+	WXPAY_NOTIFY_MONEY_VERIFY_ERROR(21,"微信支付异步通知金额校验不通过"),
+	
+	ORDER_CANCEL_SUCCESS(22, "订单取消成功"),
+	
+	ORDER_FINISH_SUCCESS(23, "订单完结成功"),
+	
+	PRODUCT_STATUS_ERROR(24, "商品状态不正确"),
+	
+	LOGIN_FAIL(25, "登录失败，登录信息不正确"),
+	
+	LOGOUT_SUCCESS(26, "登出成功"),
+	
+	PRODUCT_ONSALE_SUCCESS(27, "商品上架成功"),
+	
+	PRODUCT_OFFSALE_SUCCESS(28, "商品下架成功"),
+	
+	PRODUCTINFO_SAVE_SUCCESS(29, "商品信息保存成功"),
+	
+	CATEGORY_SAVE_SUCCESS(30, "类目信息保存成功"),
+	
 	;
 	
 	private Integer code;

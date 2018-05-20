@@ -3,6 +3,8 @@ package cn.walkerl.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +41,7 @@ public class ProductServiceImplTest {
 	@Test
 	
 	public void testFindAll() throws Exception{
-		PageRequest request = new PageRequest(0, 2);
+		PageRequest request = PageRequest.of(0, 2);
 		Page<ProductInfo> productInfoPage = productService.findAll(request);
 		TestCase.assertNotSame(new Integer(0), productInfoPage.getTotalElements());
 	}
@@ -60,5 +62,22 @@ public class ProductServiceImplTest {
 		ProductInfo result = productService.save(productInfo);
 		TestCase.assertNotNull(result);
 	}
+
+	@Test
+	@Transactional
+	public void testOnSale() {
+		ProductInfo result = productService.onSale("1235");
+		TestCase.assertEquals(ProductStatusEnum.UP, result.getProductStatusEnum());
+	}
+
+	@Test
+	@Transactional
+	public void testOffSale() {
+		ProductInfo result = productService.offSale("1235");
+		TestCase.assertEquals(ProductStatusEnum.DOWN, result.getProductStatusEnum());
+	}
+	
+	
+	
 
 }
