@@ -4,9 +4,13 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import cn.walkerl.dataobject.OrderDetail;
+import cn.walkerl.enums.OrderStatusEnum;
+import cn.walkerl.enums.PayStatusEnum;
+import cn.walkerl.utils.EnumUtil;
 import cn.walkerl.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
@@ -47,4 +51,16 @@ public class OrderDTO {
 	
 	/* 创立orderDetailList,方便controller层使用 */
 	List<OrderDetail> orderDetailList;
+	
+	@JsonIgnore
+	public OrderStatusEnum getOrderStatusEnum () {
+		return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
+	}
+	
+	@JsonIgnore
+	public PayStatusEnum getPayStatusEnum() {
+		return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
+	}
+	
+	
 }
