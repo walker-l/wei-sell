@@ -16,8 +16,8 @@ import cn.walkerl.dataobject.ProductInfo;
 public interface ProductInfoRepository extends JpaRepository<ProductInfo, String> {
 
 	@Query("select o from ProductInfo o where o.productId=:productId")
-	public ProductInfo findByProductId(@Param("productId") String productId);
+	ProductInfo findByProductId(@Param("productId") String productId);
 	
 	@Query("select o from ProductInfo o where o.productStatus=:productStatus")
-	public List<ProductInfo> findByProductStatus(@Param("productStatus") Integer productStatus);
+	List<ProductInfo> findByProductStatus(@Param("productStatus") Integer productStatus);
 }
