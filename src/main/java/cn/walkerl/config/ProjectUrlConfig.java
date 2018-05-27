@@ -8,28 +8,23 @@ import lombok.Data;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "wechat")
+@ConfigurationProperties(prefix = "projecturl")
 @PropertySource(value = "classpath:application.yml")
-public class WechatAccountConfig {
+public class ProjectUrlConfig {
 
 	/**
-	 * 公众平台id
+	 * 微信公众平台授权url
 	 */
-	private String mpAppId;
+	public String wechatMpAuthorize;
 	
 	/**
-	 * 公众平台密钥
+	 * 微信开放平台授权url
 	 */
-	private String mpAppSecret;
+	public String wechatOpenAuthorize;
 	
 	/**
-	 * 开放平台id
+	 * 点餐系统
 	 */
-	private String openAppId;
-	
-	/**
-	 * 开放平台密钥
-	 */
-	private String openAppSecret;
+	public String weiSell;
 	
 }
