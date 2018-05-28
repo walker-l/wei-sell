@@ -1,5 +1,7 @@
 package cn.walkerl.config;
 
+import java.util.Map;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -31,5 +33,10 @@ public class WechatAccountConfig {
 	 * 开放平台密钥
 	 */
 	private String openAppSecret;
+	
+	/**
+	 * 微信模板消息id
+	 */
+	private Map<String, String> templateId;
 	
 }

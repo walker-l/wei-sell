@@ -19,12 +19,16 @@ server:
   
 wechat:
   #微信公众平台报备后获得的公众号的Id和密钥(用于手机微信的公众号授权登录)
-  mpAppId: wx3e4c666a1cf349c0
-  mpAppSecret: 833c8ada8149e699c09247882f545f82
+  mpAppId: xxxxxxxxxx
+  mpAppSecret: xxxxxxxxxx
   
   #以企业身份在微信开放平台报备后获得的Id和密钥（用于网页应用授权登录）
   openAppId: xxxxxxxxx
   openAppSecret: xxxxxxxxxx
+  
+  #微信公众平台模板消息的id，orderStatus是变量名，可自定义，这里表示是订单状态变更的模板
+  templateId:
+    orderStatus: xxxxxxx
   
   
 projecturl:

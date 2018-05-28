@@ -29,6 +29,7 @@ import cn.walkerl.repository.OrderDetailRepository;
 import cn.walkerl.repository.OrderMasterRepository;
 import cn.walkerl.service.OrderService;
 import cn.walkerl.service.ProductService;
+import cn.walkerl.service.PushMessageService;
 import cn.walkerl.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +47,12 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderMasterRepository orderMasterRepository;
 	
+	@Autowired
+	private PushMessageService pushMessageService;
+	
+	/**
+	 * 创建订单
+	 */
 	@Override
 	@Transactional
 	public OrderDTO create(OrderDTO orderDTO) {
@@ -92,6 +99,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDTO;
 	}
 
+	
+	/**
+	 * 查找一个订单
+	 */
 	@Override
 	public OrderDTO findOne(String orderId) {
 		OrderMaster orderMaster = orderMasterRepository.findByOrderId(orderId);
@@ -111,6 +122,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDTO;
 	}
 
+	
+	/**
+	 * 查找某位买家订单列表
+	 */
 	@Override
 	public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
 		Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid, pageable);
@@ -120,6 +135,10 @@ public class OrderServiceImpl implements OrderService {
 		return new PageImpl<OrderDTO>(orderDTOList,pageable,orderMasterPage.getTotalElements());
 	}
 
+	
+	/**
+	 * 取消订单
+	 */
 	@Override
 	@Transactional
 	public OrderDTO cancel(OrderDTO orderDTO) {
@@ -161,6 +180,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDTO;
 	}
 
+	
+	/**
+	 * 完结订单
+	 */
 	@Override
 	@Transactional
 	public OrderDTO finish(OrderDTO orderDTO) {
@@ -183,9 +206,17 @@ public class OrderServiceImpl implements OrderService {
 			throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
 		}
 		
+		
+		//推送微信模板消息
+		pushMessageService.orderStatus(orderDTO);
+		
 		return orderDTO;
 	}
 
+	
+	/**
+	 * 订单支付
+	 */
 	@Override
 	@Transactional
 	public OrderDTO paid(OrderDTO orderDTO) {
@@ -217,6 +248,10 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	
+	/**
+	 * 卖家查找所有订单
+	 */
 	@Override
 	public Page<OrderDTO> findList(Pageable pageable) {
 		Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
