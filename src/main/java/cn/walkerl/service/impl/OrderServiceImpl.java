@@ -30,6 +30,7 @@ import cn.walkerl.repository.OrderMasterRepository;
 import cn.walkerl.service.OrderService;
 import cn.walkerl.service.ProductService;
 import cn.walkerl.service.PushMessageService;
+import cn.walkerl.service.WebSocket;
 import cn.walkerl.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,6 +50,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private PushMessageService pushMessageService;
+	
+	@Autowired
+	private WebSocket webSocket;
 	
 	/**
 	 * 创建订单
@@ -95,6 +99,9 @@ public class OrderServiceImpl implements OrderService {
 				.stream().map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
 				.collect(Collectors.toList());
 		productService.decreaseStock(cartDTOList);
+		
+		//发送websocket消息
+		webSocket.sendMessage(orderDTO.getOrderId());
 		
 		return orderDTO;
 	}
