@@ -1,7 +1,9 @@
 package cn.walkerl.exception;
 
 import cn.walkerl.enums.ResultEnum;
+import lombok.Getter;
 
+@Getter
 public class SellException extends RuntimeException {
 
 	private Integer code;

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,6 @@ import cn.walkerl.VO.ProductVO;
 import cn.walkerl.VO.ResultVO;
 import cn.walkerl.dataobject.ProductCategory;
 import cn.walkerl.dataobject.ProductInfo;
-import cn.walkerl.dto.OrderDTO;
 import cn.walkerl.service.CategoryService;
 import cn.walkerl.service.ProductService;
 import cn.walkerl.utils.ResultVOUtil;
@@ -31,7 +31,8 @@ public class BuyerProductController {
 	private CategoryService categoryService;
 	
 	@GetMapping("/list")
-	public ResultVO  list() {
+	@Cacheable(cacheNames = "product", key = "productList")
+	public ResultVO<?>  list() {
 		//1. 查询所有的上架商品
 		List<ProductInfo> productInfoList = productService.findUpAll();
 		

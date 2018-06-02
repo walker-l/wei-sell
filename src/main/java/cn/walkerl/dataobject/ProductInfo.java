@@ -1,5 +1,6 @@
 package cn.walkerl.dataobject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -22,7 +23,12 @@ import lombok.Data;
 @Entity
 @Data
 @DynamicUpdate
-public class ProductInfo {
+public class ProductInfo implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3067867380050158006L;
 
 	@Id
 	private String productId;

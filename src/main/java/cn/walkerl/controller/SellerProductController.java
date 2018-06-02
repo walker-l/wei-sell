@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -151,6 +152,7 @@ public class SellerProductController {
 	 * @return
 	 */
 	@PostMapping("/save")
+	@CacheEvict(cacheNames = "product", key = "productList")
 	public ModelAndView save(@Valid ProductForm form,
 			                 BindingResult bindingResult,
 			                 @RequestParam(value = "page", defaultValue = "1") Integer page,

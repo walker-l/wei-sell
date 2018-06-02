@@ -1,5 +1,7 @@
 package cn.walkerl.VO;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 /**
@@ -10,7 +12,12 @@ import lombok.Data;
  */
 
 @Data
-public class ResultVO<T> {
+public class ResultVO<T> implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4356425952901215018L;
 
 	/** 错误码. */
 	private Integer code;

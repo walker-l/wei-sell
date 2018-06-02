@@ -3,10 +3,14 @@ package cn.walkerl.handler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.walkerl.VO.ResultVO;
 import cn.walkerl.config.ProjectUrlConfig;
+import cn.walkerl.exception.SellException;
 import cn.walkerl.exception.SellerAuthorizeException;
+import cn.walkerl.utils.ResultVOUtil;
 
 @ControllerAdvice
 public class SellerExceptionHandler {
@@ -25,6 +29,13 @@ public class SellerExceptionHandler {
 				.concat(projectUrlConfig.getWeiSell())
 				.concat("/wei-sell/seller/login")
 				);
+	}
+	
+	//异常统一处理
+	@ExceptionHandler(value = SellException.class)
+	@ResponseBody
+	public ResultVO<?> handlerSellerException(SellException e) {
+		return ResultVOUtil.error(e.getCode(), e.getMessage());
 	}
 	
 }
